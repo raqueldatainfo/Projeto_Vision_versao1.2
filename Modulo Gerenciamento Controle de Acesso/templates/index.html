@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planta CNAK - Controle de Acesso</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <h1>Planta do Empreendimento CNAK</h1>
+      <p>Selecione um prédio e faça o controle da planta com CRUD lateral.</p>
+    </div>
+    <div class="selector-row">
+      <label for="predioSelect">Prédio:</label>
+      <select id="predioSelect" onchange="setPredio(this.value)">
+        <option value="1">Prédio 1</option>
+        <option value="2">Prédio 2</option>
+        <option value="3">Prédio 3</option>
+        <option value="4">Prédio 4</option>
+      </select>
+      <button type="button" onclick="exportJson()">Exportar Planta_CNAK.json</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="plan-summary">
+      <div class="summary-card">
+        <h2 id="planTitle">Planta do Prédio 1</h2>
+        <p id="planDescription">Visualização da planta atual do prédio selecionado.</p>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-box sala"><strong id="countSala">50</strong><span>Salas comerciais</span></div>
+        <div class="summary-box loja"><strong id="countLoja">50</strong><span>Lojas</span></div>
+        <div class="summary-box estacionamento"><strong id="countVagas">200</strong><span>Vagas de estacionamento</span></div>
+        <div class="summary-box foodcourt"><strong id="countPraça">1</strong><span>Praça de alimentação</span></div>
+        <div class="summary-box hall"><strong id="countHall">1</strong><span>Hall de entrada</span></div>
+        <div class="summary-box suporte"><strong id="countSuporte">1</strong><span>Suporte de usuário</span></div>
+        <div class="summary-box brigada"><strong id="countBrigada">1</strong><span>Brigada/segurança</span></div>
+      </div>
+    </section>
+
+    <section class="plan-layout">
+      <div class="layout-header">
+        <h2>Planta do Empreendimento</h2>
+        <p>Clique nos ícones para editar ou excluir itens da planta.</p>
+      </div>
+      <div class="layout-map" id="layoutMap"></div>
+    </section>
+  </main>
+
+  <!-- Modal para CRUD -->
+  <div id="crudModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Editar Item</h2>
+      <form id="itemForm" onsubmit="saveItem(event)">
+        <label for="itemType">Tipo</label>
+        <select id="itemType" required>
+          <option value="Sala Comercial">Sala Comercial</option>
+          <option value="Loja">Loja</option>
+          <option value="Vaga de Estacionamento">Vaga de Estacionamento</option>
+          <option value="Praça de Alimentação">Praça de Alimentação</option>
+          <option value="Hall de Entrada">Hall de Entrada</option>
+          <option value="Suporte de Usuário">Suporte de Usuário</option>
+          <option value="Brigada de Segurança">Brigada de Segurança</option>
+        </select>
+
+        <label for="itemName">Nome</label>
+        <input id="itemName" type="text" placeholder="Ex: Sala Comercial 1" required />
+
+        <label for="itemId">ID</label>
+        <input id="itemId" type="text" placeholder="Ex: C1, L1, P1" required />
+
+        <div class="form-actions">
+          <button type="submit">Salvar</button>
+          <button type="button" class="secondary" onclick="deleteCurrentItem()">Excluir</button>
+          <button type="button" class="secondary" onclick="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

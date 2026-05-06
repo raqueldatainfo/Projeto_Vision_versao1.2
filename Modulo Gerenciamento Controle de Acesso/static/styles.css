@@ -1,0 +1,338 @@
+:root {
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --primary: #2563eb;
+  --primary-soft: #dbeafe;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.page-header {
+  padding: 24px 32px;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.6rem, 2vw, 2.4rem);
+}
+
+.page-header p {
+  margin: 0;
+  max-width: 560px;
+}
+
+.selector-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.selector-row select,
+.selector-row button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.selector-row button {
+  background: white;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 24px 32px 32px;
+}
+
+.plan-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.layout-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.layout-map {
+  min-height: 1200px;
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  background: #f9fafb;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Planta simulada */
+.planta-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.planta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f8fafc;
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Blocos de organização */
+.bloco-container {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.bloco-titulo {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #475569;
+}
+
+.elementos-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+}
+
+.planta-element {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.planta-element:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
+
+.planta-element.sala {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.planta-element.loja {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+}
+
+.planta-element.vaga {
+  background: linear-gradient(135deg, #d97706 0%, #c2410c 100%);
+}
+
+.planta-element.foodcourt {
+  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+}
+
+.planta-element.hall {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+}
+
+.planta-element.suporte {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+.planta-element.brigada {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+/* Labels das áreas */
+.area-label {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+#modalTitle {
+  margin-top: 0;
+}
+
+#itemForm {
+  display: grid;
+  gap: 14px;
+}
+
+#itemForm label {
+  font-weight: 600;
+}
+
+#itemForm input,
+#itemForm select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+#itemForm button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#itemForm button[type="submit"] {
+  background: var(--primary);
+  color: white;
+}
+
+#itemForm .secondary {
+  background: #e5e7eb;
+  color: var(--text);
+}
+
+#itemForm .secondary.delete {
+  background: var(--danger);
+  color: white;
+}
+
+@media (max-width: 1180px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-map {
+    min-height: 600px;
+  }
+
+  .planta-element {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .selector-row {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .layout-map {
+    min-height: 500px;
+    padding: 16px;
+  }
+
+  .planta-element {
+    width: 40px !important;
+    height: 30px !important;
+    font-size: 0.6rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 20% auto;
+  }
+}

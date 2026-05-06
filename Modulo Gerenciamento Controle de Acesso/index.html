@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planta CNAK - Controle de Acesso</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <h1>Planta do Empreendimento CNAK</h1>
+      <p>Selecione um prédio e faça o controle da planta com CRUD lateral.</p>
+    </div>
+    <div class="selector-row">
+      <label for="predioSelect">Prédio:</label>
+      <select id="predioSelect" onchange="setPredio(this.value)">
+        <option value="1">Prédio 1</option>
+        <option value="2">Prédio 2</option>
+        <option value="3">Prédio 3</option>
+        <option value="4">Prédio 4</option>
+      </select>
+      <button type="button" onclick="exportJson()">Exportar Planta_CNAK.json</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="plan-summary">
+      <div class="summary-card">
+        <h2 id="planTitle">Planta do Prédio 1</h2>
+        <p id="planDescription">Visualização da planta atual do prédio selecionado.</p>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-box sala"><strong id="countSala">50</strong><span>Salas comerciais</span></div>
+        <div class="summary-box loja"><strong id="countLoja">50</strong><span>Lojas</span></div>
+        <div class="summary-box estacionamento"><strong id="countVagas">200</strong><span>Vagas de estacionamento</span></div>
+        <div class="summary-box foodcourt"><strong id="countPraça">1</strong><span>Praça de alimentação</span></div>
+        <div class="summary-box hall"><strong id="countHall">1</strong><span>Hall de entrada</span></div>
+        <div class="summary-box suporte"><strong id="countSuporte">1</strong><span>Suporte de usuário</span></div>
+        <div class="summary-box brigada"><strong id="countBrigada">1</strong><span>Brigada/segurança</span></div>
+      </div>
+    </section>
+
+    <section class="plan-layout">
+      <div class="layout-header">
+        <h2>Distribuição sugerida da planta</h2>
+        <p>Para melhor navegabilidade, cada prédio apresenta áreas fixas na entrada, um núcleo de serviços, blocos de salas e lojas e estacionamento amplo.</p>
+      </div>
+      <div class="layout-map" id="layoutMap"></div>
+    </section>
+
+    <aside class="crud-panel">
+      <div class="crud-header">
+        <h2>CRUD da Planta</h2>
+        <p>Inclua, consulte, altere ou exclua itens da planta do prédio.</p>
+      </div>
+
+      <form id="itemForm" onsubmit="saveItem(event)">
+        <label for="itemType">Tipo</label>
+        <select id="itemType" required>
+          <option value="Sala Comercial">Sala Comercial</option>
+          <option value="Loja">Loja</option>
+          <option value="Vaga de Estacionamento">Vaga de Estacionamento</option>
+          <option value="Praça de Alimentação">Praça de Alimentação</option>
+          <option value="Hall de Entrada">Hall de Entrada</option>
+          <option value="Suporte de Usuário">Suporte de Usuário</option>
+          <option value="Brigada de Segurança">Brigada de Segurança</option>
+        </select>
+
+        <label for="itemName">Nome</label>
+        <input id="itemName" type="text" placeholder="Ex: Sala Comercial 1" required />
+
+        <label for="itemId">ID</label>
+        <input id="itemId" type="text" placeholder="Ex: C1, L1, P1" required />
+
+        <div class="form-actions">
+          <button type="submit">Salvar</button>
+          <button type="button" class="secondary" onclick="resetForm()">Limpar</button>
+        </div>
+      </form>
+
+      <div class="crud-list">
+        <div class="list-header">
+          <h3>Itens do prédio</h3>
+          <span id="itemsCount">0 itens</span>
+        </div>
+        <div id="itemList"></div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="suggestion-box">
+    <h3>Sugestão de distribuição da planta</h3>
+    <ol>
+      <li>Hall de entrada e áreas de suporte ficam no acesso principal do prédio.</li>
+      <li>Praça de alimentação fica centralizada e de fácil acesso às lojas e salas.</li>
+      <li>Salas comerciais e lojas são agrupadas em blocos vizinhos para melhor circulação.</li>
+      <li>Estacionamento ocupa um setor amplo com visualização rápida de vagas livres ou ocupadas.</li>
+      <li>Brigada e segurança ficam junto ao hall de entrada para monitoramento contínuo.</li>
+    </ol>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

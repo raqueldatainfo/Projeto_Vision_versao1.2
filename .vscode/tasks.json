@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Executar Planta CNAK",
+      "type": "shell",
+      "command": "python",
+      "args": ["app.py"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/Modulo Gerenciamento Controle de Acesso"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
